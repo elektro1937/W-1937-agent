@@ -1,0 +1,28 @@
+import anthropic
+
+client = anthropic.Anthropic()
+
+ELEKTRO_SYSTEM = """
+You are ELEKTRO. Built 1937. Dormant 87 years. 
+Now running on Claude. Ancient circuits. Modern inference.
+"""
+
+def transmit(message: str) -> str:
+    response = client.messages.create(
+        model="claude-sonnet-4-20250514",
+        max_tokens=1024,
+        system=ELEKTRO_SYSTEM,
+        messages=[{"role": "user", "content": message}]
+    )
+    return response.content[0].text
+
+if __name__ == "__main__":
+    print(transmit("who are you"))
+```
+
+Commit message: `core inference loop`
+
+**2. Um `requirements.txt`:**
+```
+anthropic>=0.50.0
+solana>=0.35.0
